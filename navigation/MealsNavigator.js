@@ -9,23 +9,24 @@ import Colors from '../constants/Colors';
 const MealsNavigator = createStackNavigator(
   {
     Categories: {
-      screen: CategoriesScreen
+      screen: CategoriesScreen,
     },
     CategoryMeals: {
-      screen: CategoryMealsScreen
+      screen: CategoryMealsScreen,
     },
-    MealDetail: MealDetailScreen
+    MealDetail: MealDetailScreen,
   },
   {
     // initialRouteName: 'Categories',
     defaultNavigationOptions: {
       headerStyle: {
-        backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : ''
+        backgroundColor: Platform.OS === 'android' ? Colors.primaryColor : '',
+        marginVertical: Platform.OS === 'ios' ? 20 : 0,
       },
       headerTintColor:
         Platform.OS === 'android' ? 'white' : Colors.primaryColor,
-      headerTitle: 'A Screen'
-    }
+      headerTitle: 'A Screen',
+    },
   }
 );
 
