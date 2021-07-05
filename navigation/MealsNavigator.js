@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, Text } from 'react-native';
 import {
   createStackNavigator,
   createAppContainer,
@@ -24,6 +24,12 @@ const defaultNavOptionConfig = {
     },
     headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primaryColor,
     headerTitle: 'A Screen',
+    headerTitleStyle: {
+      fontFamily: 'open-sans-bold',
+    },
+    headerBackTitleStyle: {
+      fontFamily: 'open-sans',
+    },
   },
 };
 
@@ -64,6 +70,12 @@ const tabConfig = {
           />
         );
       },
+      tabBarLabel:
+        Platform.OS === 'android' ? (
+          <Text style={{ fontFamily: 'open-sans-bold' }}>Meals</Text>
+        ) : (
+          'Meals'
+        ),
     },
   },
   Favorites: {
@@ -75,6 +87,12 @@ const tabConfig = {
           <Ionicons name={'ios-star'} size={20} color={iconInfo.tintColor} />
         );
       },
+      tabBarLabel:
+        Platform.OS === 'android' ? (
+          <Text style={{ fontFamily: 'open-sans-bold' }}>Favorites</Text>
+        ) : (
+          'Favorites'
+        ),
     },
   },
 };
@@ -88,6 +106,9 @@ const MealBottomTabNavigator =
     : createBottomTabNavigator(tabConfig, {
         tabBarOptions: {
           activeTintColor: Colors.accentColor,
+          labelStyle: {
+            fontFamily: 'open-sans-bold',
+          },
         },
       });
 
@@ -98,9 +119,24 @@ const FilterTabNavigator = createStackNavigator(
   defaultNavOptionConfig
 );
 
-const MealDrawerNvigator = createDrawerNavigator({
-  Meals: MealBottomTabNavigator,
-  Filter: FilterTabNavigator,
-});
+const MealDrawerNvigator = createDrawerNavigator(
+  {
+    MealsTabs: {
+      screen: MealBottomTabNavigator,
+      navigationOptions: {
+        drawerLabel: 'Meals',
+      },
+    },
+    Filter: FilterTabNavigator,
+  },
+  {
+    contentOptions: {
+      activeTintColor: Colors.accentColor,
+      labelStyle: {
+        fontFamily: 'open-sans-bold',
+      },
+    },
+  }
+);
 
 export default createAppContainer(MealDrawerNvigator);
